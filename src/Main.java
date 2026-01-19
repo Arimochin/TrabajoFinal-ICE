@@ -9,5 +9,9 @@ public class Main {
         int [][] m = ATSPReader.init(filePath1);
         TSP.init(m);
 
+
+
+
+
     }
 }

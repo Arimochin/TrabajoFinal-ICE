@@ -29,6 +29,17 @@ public class TSP {
         List<int[]> matingPool = parentSelection.getMatingPool(population, matriz);
         System.out.println("-----------------------------");
         TSPInitialPop.printSubsets(matingPool);
+
+        int[] p1 = matingPool.getFirst();
+        int[] p2 = matingPool.getLast();
+        matingPool.getLast();
+
+        System.out.println("parent 1: " + Arrays.toString(p1));
+        System.out.println("parent 2: " + Arrays.toString(p2));
+
+
+        ITSPCrossoverOperator op = new TSPCrossoverOperatorOrder();
+        System.out.println("children: "+Arrays.toString(op.getCrossover(p1, p2)));
     }
 
 
