@@ -32,7 +32,7 @@ public class TSPCrossoverOperatorOrder implements ITSPCrossoverOperator{
 
             boolean found = false;
             while(!found){
-                if (!exists(p2[w], k1)){
+                if (!TSPHelper.exists(p2[w], k1)){
                     k1[k] = p2[w];
                     found = true;
                 }
@@ -53,12 +53,5 @@ public class TSPCrossoverOperatorOrder implements ITSPCrossoverOperator{
         return k1;
     }
 
-    private boolean exists(int v, int[] a){
-        for(int i : a){
-            if(i == v){
-                return true;
-            }
-        }
-        return false;
-    }
+
 }

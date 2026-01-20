@@ -38,7 +38,7 @@ public class TSP {
         System.out.println("parent 2: " + Arrays.toString(p2));
 
 
-        ITSPCrossoverOperator op = new TSPCrossoverOperatorOrder();
+        ITSPCrossoverOperator op = new TSPCrossoverOperatorPMX();
         System.out.println("children: "+Arrays.toString(op.getCrossover(p1, p2)));
     }
 
