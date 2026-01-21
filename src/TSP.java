@@ -40,6 +40,9 @@ public class TSP {
 
         ITSPCrossoverOperator op = new TSPCrossoverOperatorPMX();
         System.out.println("children: "+Arrays.toString(op.getCrossover(p1, p2)));
+
+        ITSPMutationOperator mt = new TSPMutationOperatorInsertion();
+        System.out.println("resultado Mutacion: " + Arrays.toString(mt.getMutation(p1)));
     }
 
 
