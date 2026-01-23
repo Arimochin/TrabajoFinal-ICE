@@ -7,7 +7,9 @@ public class Main {
         String filePath1 = "resources/br17.atsp";
         String filePath2 = "resources/p43.atsp";
         int [][] m = ATSPReader.init(filePath1);
-        TSP.init(m);
+
+        TSP tsp = new TSP();
+        tsp.init(m);
 
 
 
