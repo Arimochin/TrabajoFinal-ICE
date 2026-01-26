@@ -10,7 +10,7 @@ public class TSPMatingPoolRoulette implements ITSPMatingPool{
         for (int[] sample : population) {
             Sample s = new Sample();
             s.setTour(sample);
-            s.setFitness(getFitness(sample, matrix));
+            s.setFitness(TSPHelper.getFitness(sample, matrix));
             samples.add(s);
         }
         Collections.sort(samples, Collections.reverseOrder());
@@ -62,12 +62,5 @@ public class TSPMatingPoolRoulette implements ITSPMatingPool{
         return probAcum.length - 1;
     }
 
-    private int getFitness(int[] sample, int[][] matrix){
-        int acum = 0;
-        for(int i = 0; i < sample.length-1;i++){
-            acum += matrix[sample[i]][sample[i+1]];
-        }
-        acum+= matrix[sample[sample.length-1]][sample[0]];
-        return acum;
-    }
+
 }

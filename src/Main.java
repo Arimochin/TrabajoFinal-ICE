@@ -9,6 +9,15 @@ public class Main {
         int [][] m = ATSPReader.init(filePath1);
 
         TSP tsp = new TSP();
+
+        tsp.setCrossoverOperator(new TSPCrossoverOperatorPMX());
+        tsp.setParentSelection(new TSPMatingPoolTournament(5,false,25));
+        tsp.setCrossChance(0.8D);
+        tsp.setSurvivorSelection(new TSPSurvivorsSelectionSteadyState(25));
+        tsp.setMutationOperator(new TSPMutationOperatorInversion());
+        tsp.setMutationChance(0.05);
+
+
         tsp.init(m);
 
 

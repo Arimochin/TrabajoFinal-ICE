@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class TSP {
     private static int[] representacion;
@@ -15,6 +12,7 @@ public class TSP {
     private ITSPMatingPool parentSelection;
     private ITSPCrossoverOperator crossoverOperator;
     private ITSPMutationOperator mutationOperator;
+    private ITSPSurvivorSelection survivorSelectionOperator;
 
 
     public void init(int[][] m){
@@ -28,7 +26,18 @@ public class TSP {
         TSPInitialPop.printSubsets(matingPool);
 
         List<int[]> kids = getMatingResults();
+
         kids = getMutationResults(kids);
+
+        List<Sample> samplesP = TSPHelper.toSamples(population, matriz);
+        Collections.sort(samplesP);
+
+        List<Sample> samplesK = TSPHelper.toSamples(kids, matriz);
+        Collections.sort(samplesK);
+
+        List<int[]> survivors  = survivorSelectionOperator.selectSurvivors(samplesP, samplesK, matriz);
+
+        TSPInitialPop.printSubsets(survivors);
 
 
 
@@ -91,5 +100,9 @@ public class TSP {
 
     public void setMutationChance(double mutationChance) {
         this.mutationChance = mutationChance;
+    }
+
+    public void setSurvivorSelection(ITSPSurvivorSelection survivorSelection) {
+        this.survivorSelectionOperator = survivorSelection;
     }
 }

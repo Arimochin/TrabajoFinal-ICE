@@ -5,22 +5,25 @@ import java.util.Random;
 public class TSPMatingPoolTournament implements ITSPMatingPool{
     private int k;
     private boolean withReplacement;
+    private int n;
 
-    public TSPMatingPoolTournament(int k, boolean withReplacement){
+    public TSPMatingPoolTournament(int k, boolean withReplacement, int n){
         this.k = k;
         this.withReplacement = withReplacement;
+        this.n = n;
     }
 
     @Override
     public List<int[]> getMatingPool(List<int[]> population, int[][] matrix) {
         List<int[]> matingPool = new ArrayList<>();
+        List<int[]> populationForTournament = new ArrayList<>(population);
 
-        for (int iteration = 0; iteration < population.size()/2; iteration++) {
+        for (int iteration = 0; iteration < n; iteration++) {
             Random source = new Random();
             List<int[]> randomSamples = new ArrayList<>();
             for (int i = 0; i < k; i++) {
-                int randomSample = source.nextInt(population.size());
-                randomSamples.add(population.get(randomSample));
+                int randomSample = source.nextInt(populationForTournament.size());
+                randomSamples.add(populationForTournament.get(randomSample));
             }
 
             int bestFitness = Integer.MAX_VALUE;
@@ -39,7 +42,7 @@ public class TSPMatingPoolTournament implements ITSPMatingPool{
                 // Con reemplazo (vuelve a la poblacion) - No hago nada
                 // ---
                 // Sin reemplazo, hay que quitarlo de la poblacion
-                population.remove(bestSample);
+                populationForTournament.remove(bestSample);
             }
         }
 
