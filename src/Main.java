@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         String filePath1 = "resources/br17.atsp";
         String filePath2 = "resources/p43.atsp";
-        int [][] m = ATSPReader.init(filePath1);
+        int [][] m = ATSPReader.init(filePath2);
 
         TSP tsp = new TSP();
 
@@ -15,7 +15,7 @@ public class Main {
         tsp.setCrossChance(0.8D);
         tsp.setSurvivorSelection(new TSPSurvivorsSelectionSteadyState(25));
         tsp.setMutationOperator(new TSPMutationOperatorInversion());
-        tsp.setMutationChance(0.05);
+        tsp.setMutationChance(0.1);
 
 
         tsp.init(m);

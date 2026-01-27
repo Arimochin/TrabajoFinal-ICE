@@ -55,5 +55,9 @@ public class TSPHelper {
 
         return arrays;
     }
+    public static int getMinValue (List<int[]>population,int[][] matrix){
+        List<Sample> samples= toSamples(population,matrix) ;
+        return Collections.min(samples).getFitness();
+    }
 }
 

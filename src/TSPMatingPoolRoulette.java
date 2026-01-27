@@ -18,12 +18,12 @@ public class TSPMatingPoolRoulette implements ITSPMatingPool{
         double[] prob = getProbLinealMapping(samples, 1.5);
         double[] probAcum = getProbAcum(prob);
 
-        System.out.println("Ranking");
-        for(Sample s : samples){
-            System.out.println(s.toString());
-        }
-        System.out.println("Probabilidades" + "\n" + Arrays.toString(prob));
-        System.out.println("Probabilidades Acumuladas " + "\n" + Arrays.toString(probAcum));
+        //System.out.println("Ranking");
+        //for(Sample s : samples){
+       //     System.out.println(s.toString());
+       // }
+        //System.out.println("Probabilidades" + "\n" + Arrays.toString(prob));
+        //System.out.println("Probabilidades Acumuladas " + "\n" + Arrays.toString(probAcum));
 
         for (int iteration = 0; iteration < population.size()/2; iteration++) {
             int selected = spinRoulette(probAcum);
@@ -38,7 +38,7 @@ public class TSPMatingPoolRoulette implements ITSPMatingPool{
         double[] prob = new double[(int)populationSize];
         for (int i = 0; i < populationSize; i++) {
             prob[i] = (2-s) / populationSize + (2 * i * (s - 1)) / (populationSize * (populationSize - 1));
-            System.out.println("Sample "+ i + ":" +ranking.get(i) +" "+ prob[i]);
+            //System.out.println("Sample "+ i + ":" +ranking.get(i) +" "+ prob[i]);
         }
         return prob;
     }

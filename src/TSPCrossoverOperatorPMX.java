@@ -11,7 +11,7 @@ public class TSPCrossoverOperatorPMX implements ITSPCrossoverOperator{
         int i = (int) (Math.random()*p1.length);
         int j = (int) (Math.random()*(p1.length-i))+i;
 
-        System.out.println("i: "+i + " j: "+j);
+
 
         for(int k = i; k <= j; k++){
             k1[k] = p1[k];

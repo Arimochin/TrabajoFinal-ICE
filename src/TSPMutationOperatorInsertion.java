@@ -3,7 +3,7 @@ public class TSPMutationOperatorInsertion implements ITSPMutationOperator{
     public int[] getMutation(int[] k) {
         int i = (int) (Math.random()*k.length);
         int j = (int) (Math.random()*(k.length-i))+i;
-        System.out.println("i: "+i + " j: "+j);
+        //System.out.println("i: "+i + " j: "+j);
 
         int ogValueJ = k[j];
 

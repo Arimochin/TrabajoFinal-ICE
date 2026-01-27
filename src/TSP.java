@@ -19,29 +19,30 @@ public class TSP {
         matriz = m;
         dimension = matriz.length;
         representacion = new int[dimension];
+
         population = TSPInitialPop.getInitialPop(matriz);
+        int i = 0;
+        while(i < 150000) {
 
-        matingPool = parentSelection.getMatingPool(population, matriz);
-        System.out.println("-----------------------------");
-        TSPInitialPop.printSubsets(matingPool);
+            matingPool = parentSelection.getMatingPool(population, matriz);
 
-        List<int[]> kids = getMatingResults();
+            List<int[]> kids = getMatingResults();
 
-        kids = getMutationResults(kids);
+            kids = getMutationResults(kids);
 
-        List<Sample> samplesP = TSPHelper.toSamples(population, matriz);
-        Collections.sort(samplesP);
+            List<Sample> samplesP = TSPHelper.toSamples(population, matriz);
+            Collections.sort(samplesP);
 
-        List<Sample> samplesK = TSPHelper.toSamples(kids, matriz);
-        Collections.sort(samplesK);
+            List<Sample> samplesK = TSPHelper.toSamples(kids, matriz);
+            Collections.sort(samplesK);
 
-        List<int[]> survivors  = survivorSelectionOperator.selectSurvivors(samplesP, samplesK, matriz);
+            List<int[]> survivors = survivorSelectionOperator.selectSurvivors(samplesP, samplesK, matriz);
 
-        TSPInitialPop.printSubsets(survivors);
-
-
-
-
+            population = survivors;
+            i++;
+        }
+        System.out.println("Valor minimo: "+TSPHelper.getMinValue(population,matriz));
+        System.out.println(i);
     }
 
     private List<int[]> getMatingResults(){
