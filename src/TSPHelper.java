@@ -4,6 +4,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class TSPHelper {
+    private static int[][] matrix;
+
+    public static void setMatrix(int[][] m) {
+        matrix = m;
+    }
+
     public static boolean exists(int v, int[] a){
         for(int i : a){
             if(i == v){
@@ -23,7 +29,7 @@ public class TSPHelper {
         return index;
     }
 
-    public static int getFitness(int[] sample, int[][] matrix){
+    public static int getFitness(int[] sample){
         int acum = 0;
         for(int i = 0; i < sample.length-1;i++){
             acum += matrix[sample[i]][sample[i+1]];
@@ -38,7 +44,7 @@ public class TSPHelper {
         for (int[] sample : arrays) {
             Sample s = new Sample();
             s.setTour(sample);
-            s.setFitness(TSPHelper.getFitness(sample, matrix));
+            s.setFitness(TSPHelper.getFitness(sample));
             samples.add(s);
         }
 
@@ -55,9 +61,8 @@ public class TSPHelper {
 
         return arrays;
     }
-    public static int getMinValue (List<int[]>population,int[][] matrix){
-        List<Sample> samples= toSamples(population,matrix) ;
-        return Collections.min(samples).getFitness();
+    public static int getMinValue (List<Sample>population,int[][] matrix){
+        return Collections.min(population).getFitness();
     }
 }
 

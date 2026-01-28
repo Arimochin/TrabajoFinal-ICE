@@ -5,19 +5,18 @@ import java.util.Random;
 
 public class TSPInitialPop {
 
-    public static List<int[]> getInitialPop(int[][] matriz){
-        List<int[]> population = new ArrayList<>();
-        population = generateGreedySubset(matriz);
-        population.addAll(generateRandomSubset(matriz));
+    public static List<Sample> getInitialPop(int[][] matriz, int goodSolutions, int randomSolutions){
+        List<Sample> population = new ArrayList<>();
+        population = generateGreedySubset(matriz, goodSolutions);
+        population.addAll(generateRandomSubset(matriz,randomSolutions));
         printSubsets(population);
         return population;
     }
 
-    private static List<int[]> generateGreedySubset(int[][] matrix) {
+    private static List<Sample> generateGreedySubset(int[][] matrix, int goodSolutions) {
         int n = matrix.length;
-        int maxSubsetSize = 5;
-        int iterations = Math.min(n, maxSubsetSize);
-        List<int[]> subset = new ArrayList<>();
+        int iterations = Math.min(n, goodSolutions);
+        List<Sample> subset = new ArrayList<>();
 
         for (int startNode = 0; startNode < iterations; startNode++) {
             int[] tour = new int[n];
@@ -25,6 +24,7 @@ public class TSPInitialPop {
             int current = startNode;
             tour[0] = current;
             visited[current] = true;
+            Sample s = new Sample();
 
             for (int step = 1; step < n; step++) {
                 int nextNode = -1;
@@ -42,21 +42,23 @@ public class TSPInitialPop {
                 tour[step] = nextNode;
                 visited[nextNode] = true;
                 current = nextNode;
+
+                s.setTour(tour);
             }
-            subset.add(tour);
+            subset.add(s);
         }
         return subset;
     }
 
-    private static List<int[]> generateRandomSubset(int[][] matrix) {
+    private static List<Sample> generateRandomSubset(int[][] matrix, int randomSolutions) {
         int n = matrix.length;
-        int iterations = 45;
-        List<int[]> subset = new ArrayList<>();
+        List<Sample> subset = new ArrayList<>();
 
-        for (int iteration = 0; iteration < iterations; iteration++){
+        for (int iteration = 0; iteration < randomSolutions; iteration++){
             Random source = new Random();
             boolean[] visited = new boolean[n];
             int[] tour = new int[n];
+            Sample s = new Sample();
 
             for (int i = 0; i < n ; i++) {
                 boolean stepComplete = false;
@@ -69,15 +71,16 @@ public class TSPInitialPop {
                     }
                 }
             }
-            subset.add(tour);
+            s.setTour(tour);
+            subset.add(s);
         }
 
         return subset;
     }
 
-    public static void printSubsets(List<int[]> subsets){
-        for (int[] a : subsets){
-            System.out.println(Arrays.toString(a));
+    public static void printSubsets(List<Sample> subsets){
+        for (Sample a : subsets){
+            System.out.println(Arrays.toString(a.getTour()));
         }
     }
 }

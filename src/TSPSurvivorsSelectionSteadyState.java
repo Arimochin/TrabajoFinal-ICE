@@ -10,18 +10,18 @@ public class TSPSurvivorsSelectionSteadyState implements ITSPSurvivorSelection{
     }
 
     @Override
-    public List<int[]> selectSurvivors(List<Sample> population, List<Sample> kids, int[][] matrix) {
-        List<int[]> survivors = new ArrayList<>();
+    public List<Sample> selectSurvivors(List<Sample> population, List<Sample> kids, int[][] matrix) {
+//        List<Sample> survivors = new ArrayList<>();
 
         // Reemplazar peores n de la poblacion actual con los n mejores de los hijos
         for (int i = 0; i < n; i++ ) {
             population.set(population.size() - i - 1, kids.get(i));
         }
 
-        for (int i = 0; i < population.size(); i++){
-            survivors.add(kids.get(i).getTour());
-        }
+//        for (int i = 0; i < population.size(); i++){
+//            survivors.add(kids.get(i).getTour());
+//        }
 
-        return survivors;
+        return population;
     }
 }

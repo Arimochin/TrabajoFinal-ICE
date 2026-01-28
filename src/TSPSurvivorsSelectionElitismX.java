@@ -10,15 +10,15 @@ public class TSPSurvivorsSelectionElitismX implements ITSPSurvivorSelection {
 
 
     @Override
-    public List<int[]> selectSurvivors(List<Sample> population, List<Sample> kids, int[][] matrix) {
-        int[] bestPopulationSample = population.removeFirst().getTour();
-        int[] bestKidsSample = kids.removeFirst().getTour();
+    public List<Sample> selectSurvivors(List<Sample> population, List<Sample> kids, int[][] matrix) {
+        Sample bestPopulationSample = population.removeFirst();
+        Sample bestKidsSample = kids.removeFirst();
 
-        List<int[]> participants = new ArrayList<>();
-        participants.addAll(TSPHelper.toArrays(population));
-        participants.addAll(TSPHelper.toArrays(kids));
+        List<Sample> participants = new ArrayList<>();
+        participants.addAll(population);
+        participants.addAll(kids);
 
-        List<int[]> selectedSurvivors = secondMethod.getMatingPool(participants,matrix);
+        List<Sample> selectedSurvivors = secondMethod.getMatingPool(participants,matrix);
 
         selectedSurvivors.add(bestKidsSample);
         selectedSurvivors.add(bestPopulationSample);

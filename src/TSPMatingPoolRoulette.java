@@ -3,19 +3,13 @@ import java.util.*;
 public class TSPMatingPoolRoulette implements ITSPMatingPool{
 
     @Override
-    public List<int[]> getMatingPool(List<int[]> population, int[][] matrix) {
-        List<int[]> matingPool = new ArrayList<>();
+    public List<Sample> getMatingPool(List<Sample> population, int[][] matrix) {
+        List<Sample> matingPool = new ArrayList<>();
 
-        List<Sample> samples = new ArrayList<>();
-        for (int[] sample : population) {
-            Sample s = new Sample();
-            s.setTour(sample);
-            s.setFitness(TSPHelper.getFitness(sample, matrix));
-            samples.add(s);
-        }
-        Collections.sort(samples, Collections.reverseOrder());
+        //List<Sample> samples = new ArrayList<>();
+        Collections.sort(population, Collections.reverseOrder());
 
-        double[] prob = getProbLinealMapping(samples, 1.5);
+        double[] prob = getProbLinealMapping(population, 1.5);
         double[] probAcum = getProbAcum(prob);
 
         //System.out.println("Ranking");
@@ -27,7 +21,7 @@ public class TSPMatingPoolRoulette implements ITSPMatingPool{
 
         for (int iteration = 0; iteration < population.size()/2; iteration++) {
             int selected = spinRoulette(probAcum);
-            matingPool.add(samples.get(selected).getTour());
+            matingPool.add(population.get(selected));
         }
 
         return matingPool;

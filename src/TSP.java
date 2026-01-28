@@ -4,8 +4,8 @@ public class TSP {
     private static int[] representacion;
     public static int dimension;
     private static int[][] matriz;
-    private static List<int[]> population;
-    private static List<int[]> matingPool;
+    private static List<Sample> population;
+    private static List<Sample> matingPool;
     private double crossChance;
     private double mutationChance;
 
@@ -17,36 +17,37 @@ public class TSP {
 
     public void init(int[][] m){
         matriz = m;
+        TSPHelper.setMatrix(matriz);
         dimension = matriz.length;
         representacion = new int[dimension];
 
-        population = TSPInitialPop.getInitialPop(matriz);
+        population = TSPInitialPop.getInitialPop(matriz, 5, 45);
         int i = 0;
         while(i < 150000) {
-
+            // Seleccion de Padres
             matingPool = parentSelection.getMatingPool(population, matriz);
 
-            List<int[]> kids = getMatingResults();
+            // Cruce
+            List<Sample> kids = getMatingResults();
 
+            // Mutacion
             kids = getMutationResults(kids);
 
-            List<Sample> samplesP = TSPHelper.toSamples(population, matriz);
-            Collections.sort(samplesP);
+            //List<Sample> samplesP = TSPHelper.toSamples(population, matriz);
+            Collections.sort(population);
 
-            List<Sample> samplesK = TSPHelper.toSamples(kids, matriz);
-            Collections.sort(samplesK);
+            //List<Sample> samplesK = TSPHelper.toSamples(kids, matriz);
+            Collections.sort(kids);
 
-            List<int[]> survivors = survivorSelectionOperator.selectSurvivors(samplesP, samplesK, matriz);
-
-            population = survivors;
+            population = survivorSelectionOperator.selectSurvivors(population, kids, matriz);
             i++;
         }
-        System.out.println("Valor minimo: "+TSPHelper.getMinValue(population,matriz));
+        System.out.println("Valor minimo: "+TSPHelper.getMinValue(population, matriz));
         System.out.println(i);
     }
 
-    private List<int[]> getMatingResults(){
-        List<int[]> kids = new ArrayList<>();
+    private List<Sample> getMatingResults(){
+        List<Sample> kids = new ArrayList<>();
 
         while (kids.size() < matingPool.size() * 2) {
             int p1 = (int) (Math.random() * matingPool.size());
@@ -58,25 +59,31 @@ public class TSP {
             int[] k1;
             int[] k2;
             if(Math.random() < crossChance) {
-                k1 = crossoverOperator.getCrossover(matingPool.get(p1), matingPool.get(p2));
-                k2 = crossoverOperator.getCrossover(matingPool.get(p2), matingPool.get(p1));
+                k1 = crossoverOperator.getCrossover(matingPool.get(p1).getTour(), matingPool.get(p2).getTour());
+                k2 = crossoverOperator.getCrossover(matingPool.get(p2).getTour(), matingPool.get(p1).getTour());
             } else {
-                k1 = matingPool.get(p1);
-                k2 = matingPool.get(p2);
+                k1 = matingPool.get(p1).getTour();
+                k2 = matingPool.get(p2).getTour();
             }
 
-            kids.add(k1);
-            kids.add(k2);
+            Sample sk1 = new Sample();
+            Sample sk2 = new Sample();
+            sk1.setTour(k1);
+            sk2.setTour(k2);
+            kids.add(sk1);
+            kids.add(sk2);
         }
 
         return kids;
 
     }
 
-    private List<int[]> getMutationResults(List<int[]> kids) {
+    private List<Sample> getMutationResults(List<Sample> kids) {
         for (int i = 0; i < kids.size(); i++) {
             if (Math.random() < mutationChance) {
-                kids.set(i, mutationOperator.getMutation(kids.get(i)));
+                Sample s = new Sample();
+                s.setTour(mutationOperator.getMutation(kids.get(i).getTour()));
+                kids.set(i, s);
             }
         }
         return kids;

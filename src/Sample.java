@@ -7,12 +7,14 @@ public class Sample implements Comparable<Sample> {
 
 
 
+
     public int[] getTour() {
         return tour;
     }
 
     public void setTour(int[] tour) {
         this.tour = tour;
+        setFitness(TSPHelper.getFitness(tour));
     }
 
     public int getFitness() {

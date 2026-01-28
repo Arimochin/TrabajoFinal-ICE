@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -14,22 +15,22 @@ public class TSPMatingPoolTournament implements ITSPMatingPool{
     }
 
     @Override
-    public List<int[]> getMatingPool(List<int[]> population, int[][] matrix) {
-        List<int[]> matingPool = new ArrayList<>();
-        List<int[]> populationForTournament = new ArrayList<>(population);
+    public List<Sample> getMatingPool(List<Sample> population, int[][] matrix) {
+        List<Sample> matingPool = new ArrayList<>();
+        List<Sample> populationForTournament = new ArrayList<>(population);
 
         for (int iteration = 0; iteration < n; iteration++) {
             Random source = new Random();
-            List<int[]> randomSamples = new ArrayList<>();
+            List<Sample> randomSamples = new ArrayList<>();
             for (int i = 0; i < k; i++) {
                 int randomSample = source.nextInt(populationForTournament.size());
                 randomSamples.add(populationForTournament.get(randomSample));
             }
 
             int bestFitness = Integer.MAX_VALUE;
-            int[] bestSample = new int[0];
-            for (int[] sample : randomSamples) {
-                int aux = getFitness(sample, matrix);
+            Sample bestSample = new Sample();
+            for (Sample sample : randomSamples) {
+                int aux = getFitness(sample.getTour(), matrix);
                 if (aux < bestFitness) {
                     bestFitness = aux;
                     bestSample = sample;
