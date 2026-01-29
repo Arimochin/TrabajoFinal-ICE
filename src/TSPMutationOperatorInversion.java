@@ -1,4 +1,4 @@
-public class TSPMutationOperatorInversion implements ITSPMutationOperator{
+public class TSPMutationOperatorInversion implements ITSPMutationOperator, IPrintable{
     @Override
     public int[] getMutation(int[] k) {
         int i = (int) (Math.random()*k.length);
@@ -15,5 +15,10 @@ public class TSPMutationOperatorInversion implements ITSPMutationOperator{
         }
 
         return k;
+    }
+
+    @Override
+    public String getStringValue() {
+        return "Mutation Operator: Inversion";
     }
 }

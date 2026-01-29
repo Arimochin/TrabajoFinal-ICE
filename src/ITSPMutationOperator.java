@@ -1,3 +1,3 @@
-public interface ITSPMutationOperator {
+public interface ITSPMutationOperator  extends IPrintable {
     int[] getMutation(int[] k);
 }

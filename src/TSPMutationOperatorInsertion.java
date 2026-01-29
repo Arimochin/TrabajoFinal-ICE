@@ -1,4 +1,4 @@
-public class TSPMutationOperatorInsertion implements ITSPMutationOperator{
+public class TSPMutationOperatorInsertion implements ITSPMutationOperator, IPrintable{
     @Override
     public int[] getMutation(int[] k) {
         int i = (int) (Math.random()*k.length);
@@ -14,5 +14,10 @@ public class TSPMutationOperatorInsertion implements ITSPMutationOperator{
         k[i+1] = ogValueJ;
 
         return k;
+    }
+
+    @Override
+    public String getStringValue() {
+        return "Mutation Operator: Insertion";
     }
 }

@@ -18,11 +18,10 @@ public class Main {
         tsp.setMutationChance(0.1);
 
 
-        tsp.init(m);
+        tsp.init(m,15000);
 
-
-
-
+        LogWriter.resetLogFile("results.txt");
+        Register.evaluate(tsp);
 
     }
 }

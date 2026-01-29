@@ -8,22 +8,32 @@ public class TSP {
     private static List<Sample> matingPool;
     private double crossChance;
     private double mutationChance;
+    private double[] avgFitnessHistory;
+    private int it;
+    private Sample bestSolution;
+    private int[] bestFitnessHistory;
+
 
     private ITSPMatingPool parentSelection;
     private ITSPCrossoverOperator crossoverOperator;
     private ITSPMutationOperator mutationOperator;
     private ITSPSurvivorSelection survivorSelectionOperator;
+    private TSPInitialPop tspInitialPop;
 
 
-    public void init(int[][] m){
+    public void init(int[][] m, int it){
+        this.it = it;
         matriz = m;
         TSPHelper.setMatrix(matriz);
         dimension = matriz.length;
         representacion = new int[dimension];
+        avgFitnessHistory = new double[it];
+        bestFitnessHistory = new int[it];
+        tspInitialPop = new TSPInitialPop();
 
-        population = TSPInitialPop.getInitialPop(matriz, 5, 45);
+        population = tspInitialPop.getInitialPop(matriz, 5, 45);
         int i = 0;
-        while(i < 150000) {
+        while(i < it) {
             // Seleccion de Padres
             matingPool = parentSelection.getMatingPool(population, matriz);
 
@@ -40,10 +50,15 @@ public class TSP {
             Collections.sort(kids);
 
             population = survivorSelectionOperator.selectSurvivors(population, kids, matriz);
+
+            avgFitnessHistory[i] = TSPHelper.getAvgFitness(population);
+            bestFitnessHistory[i] = TSPHelper.getMinValue(population).getFitness();
             i++;
+
         }
-        System.out.println("Valor minimo: "+TSPHelper.getMinValue(population, matriz));
+        System.out.println("Valor minimo: "+TSPHelper.getMinValue(population).getFitness());
         System.out.println(i);
+        bestSolution = TSPHelper.getMinValue(population);
     }
 
     private List<Sample> getMatingResults(){
@@ -112,5 +127,49 @@ public class TSP {
 
     public void setSurvivorSelection(ITSPSurvivorSelection survivorSelection) {
         this.survivorSelectionOperator = survivorSelection;
+    }
+
+    public double getCrossChance() {
+        return crossChance;
+    }
+
+    public double getMutationChance() {
+        return mutationChance;
+    }
+
+    public ITSPMatingPool getParentSelection() {
+        return parentSelection;
+    }
+
+    public ITSPMutationOperator getMutationOperator() {
+        return mutationOperator;
+    }
+
+    public ITSPCrossoverOperator getCrossoverOperator() {
+        return crossoverOperator;
+    }
+
+    public ITSPSurvivorSelection getSurvivorSelectionOperator() {
+        return survivorSelectionOperator;
+    }
+
+    public double[] getAvgFitnessHistory(){
+        return avgFitnessHistory;
+    }
+
+    public TSPInitialPop getTspInitialPop() {
+        return tspInitialPop;
+    }
+
+    public int getIt() {
+        return it;
+    }
+
+    public Sample getBestSolution() {
+        return bestSolution;
+    }
+
+    public int[] getBestFitnessHistory() {
+        return bestFitnessHistory;
     }
 }

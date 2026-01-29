@@ -61,8 +61,17 @@ public class TSPHelper {
 
         return arrays;
     }
-    public static int getMinValue (List<Sample>population,int[][] matrix){
-        return Collections.min(population).getFitness();
+
+    public static Sample getMinValue (List<Sample>population){
+        return Collections.min(population);
+    }
+
+    public static double getAvgFitness(List<Sample> samples){
+        int sum = 0;
+        for(Sample sample : samples){
+            sum+=sample.getFitness();
+        }
+        return (double) sum /samples.size();
     }
 }
 

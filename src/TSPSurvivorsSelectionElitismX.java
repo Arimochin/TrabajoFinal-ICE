@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class TSPSurvivorsSelectionElitismX implements ITSPSurvivorSelection {
+public class TSPSurvivorsSelectionElitismX implements ITSPSurvivorSelection, IPrintable {
     private ITSPMatingPool secondMethod;
 
     public TSPSurvivorsSelectionElitismX (ITSPMatingPool secondMethod) {
@@ -24,5 +24,10 @@ public class TSPSurvivorsSelectionElitismX implements ITSPSurvivorSelection {
         selectedSurvivors.add(bestPopulationSample);
 
         return selectedSurvivors;
+    }
+
+    @Override
+    public String getStringValue() {
+        return "Survivor Selection: ElitismX";
     }
 }

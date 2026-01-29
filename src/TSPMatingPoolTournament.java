@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class TSPMatingPoolTournament implements ITSPMatingPool{
+public class TSPMatingPoolTournament implements ITSPMatingPool, IPrintable{
     private int k;
     private boolean withReplacement;
     private int n;
@@ -57,5 +57,10 @@ public class TSPMatingPoolTournament implements ITSPMatingPool{
         }
         acum+= matrix[sample[sample.length-1]][sample[0]];
         return acum;
+    }
+
+    @Override
+    public String getStringValue() {
+        return "Mating Pool Operator: Tournament " +"k: "+ k + " n: " + n+" withReplacement: "+withReplacement;
     }
 }

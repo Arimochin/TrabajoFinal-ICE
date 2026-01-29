@@ -1,23 +1,23 @@
 import java.util.*;
 
-public class TSPMatingPoolRoulette implements ITSPMatingPool{
+public class TSPMatingPoolRoulette implements ITSPMatingPool, IPrintable{
+    private double s;
+
+    public TSPMatingPoolRoulette(double factorS) {
+        this.s = factorS;
+    }
 
     @Override
     public List<Sample> getMatingPool(List<Sample> population, int[][] matrix) {
         List<Sample> matingPool = new ArrayList<>();
 
-        //List<Sample> samples = new ArrayList<>();
+
         Collections.sort(population, Collections.reverseOrder());
 
-        double[] prob = getProbLinealMapping(population, 1.5);
+        double[] prob = getProbLinealMapping(population, s);
         double[] probAcum = getProbAcum(prob);
 
-        //System.out.println("Ranking");
-        //for(Sample s : samples){
-       //     System.out.println(s.toString());
-       // }
-        //System.out.println("Probabilidades" + "\n" + Arrays.toString(prob));
-        //System.out.println("Probabilidades Acumuladas " + "\n" + Arrays.toString(probAcum));
+
 
         for (int iteration = 0; iteration < population.size()/2; iteration++) {
             int selected = spinRoulette(probAcum);
@@ -54,6 +54,11 @@ public class TSPMatingPoolRoulette implements ITSPMatingPool{
             }
         }
         return probAcum.length - 1;
+    }
+
+    @Override
+    public String getStringValue() {
+        return "Mating Pool Operator: Roulette "+"Factor S: "+s;
     }
 
 

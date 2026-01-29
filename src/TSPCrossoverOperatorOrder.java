@@ -1,6 +1,6 @@
 import java.util.List;
 
-public class TSPCrossoverOperatorOrder implements ITSPCrossoverOperator{
+public class TSPCrossoverOperatorOrder implements ITSPCrossoverOperator, IPrintable{
     @Override
     public int[] getCrossover(int[] p1, int[] p2) {
         int[] k1 = new int[p1.length];
@@ -54,4 +54,8 @@ public class TSPCrossoverOperatorOrder implements ITSPCrossoverOperator{
     }
 
 
+    @Override
+    public String getStringValue() {
+        return "CrossOver Operator: Order";
+    }
 }

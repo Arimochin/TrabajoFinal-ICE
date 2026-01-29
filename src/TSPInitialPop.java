@@ -3,10 +3,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class TSPInitialPop {
+public class TSPInitialPop implements IPrintable{
+    private static int goodSol;
+    private static int randomSol;
 
-    public static List<Sample> getInitialPop(int[][] matriz, int goodSolutions, int randomSolutions){
+    public List<Sample> getInitialPop(int[][] matriz, int goodSolutions, int randomSolutions){
         List<Sample> population = new ArrayList<>();
+        goodSol = goodSolutions;
+        randomSol = randomSolutions;
         population = generateGreedySubset(matriz, goodSolutions);
         population.addAll(generateRandomSubset(matriz,randomSolutions));
         printSubsets(population);
@@ -82,5 +86,10 @@ public class TSPInitialPop {
         for (Sample a : subsets){
             System.out.println(Arrays.toString(a.getTour()));
         }
+    }
+
+    @Override
+    public String getStringValue() {
+        return "Initial Population: " + (goodSol + randomSol) + "  Greedy initial solutions number: " + goodSol;
     }
 }
