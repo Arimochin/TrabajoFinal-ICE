@@ -33,5 +33,8 @@ public class Register  {
         // Tiempo de ejecucion
 
 
+        // Separador
+        LogWriter.writeInfo("results.txt", "-----------------------------------------------------------------------------");
+
     }
 }

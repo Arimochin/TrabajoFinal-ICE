@@ -8,20 +8,36 @@ public class Main {
         String filePath2 = "resources/p43.atsp";
         int [][] m = ATSPReader.init(filePath2);
 
-        TSP tsp = new TSP();
 
-        tsp.setCrossoverOperator(new TSPCrossoverOperatorPMX());
-        tsp.setParentSelection(new TSPMatingPoolTournament(5,false,25));
-        tsp.setCrossChance(0.8D);
-        tsp.setSurvivorSelection(new TSPSurvivorsSelectionSteadyState(25));
-        tsp.setMutationOperator(new TSPMutationOperatorInversion());
-        tsp.setMutationChance(0.1);
-
-
-        tsp.init(m,15000);
+        TSPBuilder builder = new TSPBuilder();
 
         LogWriter.resetLogFile("results.txt");
+
+
+        TSP tsp = builder.setParentSelection(new TSPMatingPoolTournament(5,false,25))
+                .setCrossoverOperator(new TSPCrossoverOperatorPMX()).setCrossChance(0.8D)
+                .setMutationOperator(new TSPMutationOperatorInversion()).setMutationChance(0.1)
+                .setSurvivorSelectionOperator(new TSPSurvivorsSelectionSteadyState(25))
+                .build();
+        tsp.init(m,10000);
         Register.evaluate(tsp);
+
+
+        for(int i = 0; i < 10; i++){
+            TSP randomTSP = TSPRandomizer.createRandomTSP();
+            randomTSP.init(m,10000);
+            Register.evaluate(randomTSP);
+        }
+
+
+
+
+
+
+
+
+
+
 
     }
 }

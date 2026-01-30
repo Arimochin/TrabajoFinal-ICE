@@ -7,11 +7,16 @@ public class TSPMutationOperatorInsertion implements ITSPMutationOperator, IPrin
 
         int ogValueJ = k[j];
 
-        for (int m = j; m >= i+2; m--){
-            k[m] = k[m-1];
+        if (j - i >= 2) {
+            for (int m = j; m >= i + 2; m--) {
+                k[m] = k[m - 1];
+            }
+            k[i + 1] = ogValueJ;
         }
 
-        k[i+1] = ogValueJ;
+        //if ( i != k.length) {
+
+        //}
 
         return k;
     }

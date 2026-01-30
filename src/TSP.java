@@ -1,11 +1,11 @@
 import java.util.*;
 
 public class TSP {
-    private static int[] representacion;
-    public static int dimension;
-    private static int[][] matriz;
-    private static List<Sample> population;
-    private static List<Sample> matingPool;
+    private int[] representacion;
+    public  int dimension;
+    private int[][] matriz;
+    private List<Sample> population;
+    private List<Sample> matingPool;
     private double crossChance;
     private double mutationChance;
     private double[] avgFitnessHistory;
@@ -19,6 +19,22 @@ public class TSP {
     private ITSPMutationOperator mutationOperator;
     private ITSPSurvivorSelection survivorSelectionOperator;
     private TSPInitialPop tspInitialPop;
+
+    TSP (ITSPMatingPool parentSelection,
+         ITSPCrossoverOperator crossoverOperator,
+         ITSPMutationOperator mutationOperator,
+         ITSPSurvivorSelection survivorSelectionOperator,
+         double crossChance,
+         double mutationChance) {
+
+
+        this.parentSelection = parentSelection;
+        this.crossoverOperator = crossoverOperator;
+        this.mutationOperator = mutationOperator;
+        this.survivorSelectionOperator = survivorSelectionOperator;
+        this.crossChance = crossChance;
+        this.mutationChance = mutationChance;
+    }
 
 
     public void init(int[][] m, int it){
