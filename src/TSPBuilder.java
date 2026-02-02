@@ -1,9 +1,10 @@
-public class TSPBuilder {
+public class TSPBuilder{
 
     private ITSPMatingPool parentSelection;
     private ITSPCrossoverOperator crossoverOperator;
     private ITSPMutationOperator mutationOperator;
     private ITSPSurvivorSelection survivorSelectionOperator;
+    private TSPInitialPop tspInitialPop;
     private double crossChance;
     private double mutationChance;
 
@@ -37,10 +38,14 @@ public class TSPBuilder {
         this.mutationChance = mutationChance;
         return this;
     }
+    public TSPBuilder setInitialPop(int goodSolutionsCount, int populationSize) {
+        this.tspInitialPop = new TSPInitialPop(goodSolutionsCount, populationSize);
+        return this;
+    }
 
 
     public TSP build() {
-        TSP tsp = new TSP(parentSelection, crossoverOperator, mutationOperator, survivorSelectionOperator, crossChance, mutationChance);
+        TSP tsp = new TSP(tspInitialPop,parentSelection, crossoverOperator, mutationOperator, survivorSelectionOperator, crossChance, mutationChance);
         return tsp;
     }
 }

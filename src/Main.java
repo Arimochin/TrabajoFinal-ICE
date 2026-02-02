@@ -14,7 +14,7 @@ public class Main {
         LogWriter.resetLogFile("results.txt");
 
 
-        TSP tsp = builder.setParentSelection(new TSPMatingPoolTournament(5,false,25))
+        TSP tsp = builder.setInitialPop(5,50).setParentSelection(new TSPMatingPoolTournament(5,false,25))
                 .setCrossoverOperator(new TSPCrossoverOperatorPMX()).setCrossChance(0.8D)
                 .setMutationOperator(new TSPMutationOperatorInversion()).setMutationChance(0.1)
                 .setSurvivorSelectionOperator(new TSPSurvivorsSelectionSteadyState(25))
@@ -28,15 +28,6 @@ public class Main {
             randomTSP.init(m,10000);
             Register.evaluate(randomTSP);
         }
-
-
-
-
-
-
-
-
-
 
 
     }

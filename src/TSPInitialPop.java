@@ -4,13 +4,17 @@ import java.util.List;
 import java.util.Random;
 
 public class TSPInitialPop implements IPrintable{
-    private static int goodSol;
-    private static int randomSol;
+    private final int goodSolutions;
+    private final int randomSolutions;
 
-    public List<Sample> getInitialPop(int[][] matriz, int goodSolutions, int randomSolutions){
+
+    TSPInitialPop (int goodSolutions, int populationSize){
+        this.goodSolutions = goodSolutions;
+        this.randomSolutions = populationSize-goodSolutions;
+    }
+
+    public List<Sample> getInitialPop(int[][] matriz){
         List<Sample> population = new ArrayList<>();
-        goodSol = goodSolutions;
-        randomSol = randomSolutions;
         population = generateGreedySubset(matriz, goodSolutions);
         population.addAll(generateRandomSubset(matriz,randomSolutions));
         printSubsets(population);
@@ -90,6 +94,6 @@ public class TSPInitialPop implements IPrintable{
 
     @Override
     public String getStringValue() {
-        return "Initial Population: " + (goodSol + randomSol) + "  Greedy initial solutions number: " + goodSol;
+        return "Initial Population: " + (goodSolutions + randomSolutions) + "  Greedy initial solutions number: " + goodSolutions;
     }
 }

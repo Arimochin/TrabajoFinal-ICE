@@ -32,7 +32,7 @@ public class TSPRandomizer {
 
     public static TSP createRandomTSP() {
         TSPBuilder builder = new TSPBuilder();
-
+        builder.setInitialPop(5,50);
         builder.setCrossoverOperator(getRandomCrossover());
         builder.setMutationOperator(getRandomMutation());
         builder.setParentSelection(getRandomMatingPool());

@@ -20,7 +20,8 @@ public class TSP {
     private ITSPSurvivorSelection survivorSelectionOperator;
     private TSPInitialPop tspInitialPop;
 
-    TSP (ITSPMatingPool parentSelection,
+    TSP (TSPInitialPop tspInitialPop,
+         ITSPMatingPool parentSelection,
          ITSPCrossoverOperator crossoverOperator,
          ITSPMutationOperator mutationOperator,
          ITSPSurvivorSelection survivorSelectionOperator,
@@ -34,6 +35,7 @@ public class TSP {
         this.survivorSelectionOperator = survivorSelectionOperator;
         this.crossChance = crossChance;
         this.mutationChance = mutationChance;
+        this.tspInitialPop = tspInitialPop;
     }
 
 
@@ -45,9 +47,8 @@ public class TSP {
         representacion = new int[dimension];
         avgFitnessHistory = new double[it];
         bestFitnessHistory = new int[it];
-        tspInitialPop = new TSPInitialPop();
 
-        population = tspInitialPop.getInitialPop(matriz, 5, 45);
+        population = tspInitialPop.getInitialPop(matriz);
         int i = 0;
         while(i < it) {
             // Seleccion de Padres
