@@ -11,7 +11,7 @@ public class Main {
 
         TSPBuilder builder = new TSPBuilder();
 
-        LogWriter.resetLogFile("results.txt");
+        LogWriter.resetLogFile("output.txt");
 
 
         TSP tsp = builder.setInitialPop(5,50).setParentSelection(new TSPMatingPoolTournament(5,false,25))

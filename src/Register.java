@@ -6,35 +6,35 @@ public class Register  {
         // LogWriter.writeInfo("results.txt", );
 
         // Popuation size
-        LogWriter.writeInfo("results.txt", tsp.getTspInitialPop().getStringValue());
+        LogWriter.writeInfo("output.txt", tsp.getTspInitialPop().getStringValue());
 
         // Nro de iteraciones
-        LogWriter.writeInfo("results.txt", "Iterations number: "+ tsp.getIt());
+        LogWriter.writeInfo("output.txt", "Iterations number: "+ tsp.getIt());
 
         // Seleccion de padres
-        LogWriter.writeInfo("results.txt", tsp.getParentSelection().getStringValue());
+        LogWriter.writeInfo("output.txt", tsp.getParentSelection().getStringValue());
 
         // Cruce
-        LogWriter.writeInfo("results.txt", tsp.getCrossoverOperator().getStringValue() + " Chance: " + tsp.getCrossChance());
+        LogWriter.writeInfo("output.txt", tsp.getCrossoverOperator().getStringValue() + " Chance: " + tsp.getCrossChance());
 
         // Mutacion
-        LogWriter.writeInfo("results.txt", tsp.getMutationOperator().getStringValue() + " Chance: " + tsp.getMutationChance());
+        LogWriter.writeInfo("output.txt", tsp.getMutationOperator().getStringValue() + " Chance: " + tsp.getMutationChance());
 
         // Seleccion de sobrevivientes
-        LogWriter.writeInfo("results.txt", tsp.getSurvivorSelectionOperator().getStringValue());
+        LogWriter.writeInfo("output.txt", tsp.getSurvivorSelectionOperator().getStringValue());
 
         // Mejor fitness en cada iteracion
-        LogWriter.writeInfo("results.txt", Arrays.toString(tsp.getBestFitnessHistory()));
+        LogWriter.writeInfo("output.txt", Arrays.toString(tsp.getBestFitnessHistory()));
 
         // Mejor solucion lograda
-        LogWriter.writeInfo("results.txt", "Best Composition: " + Arrays.toString(tsp.getBestSolution().getTour()));
-        LogWriter.writeInfo("results.txt", "Best Fitness: " + tsp.getBestSolution().getFitness());
+        LogWriter.writeInfo("output.txt", "Best Composition: " + Arrays.toString(tsp.getBestSolution().getTour()));
+        LogWriter.writeInfo("output.txt", "Best Fitness: " + tsp.getBestSolution().getFitness());
 
         // Tiempo de ejecucion
 
 
         // Separador
-        LogWriter.writeInfo("results.txt", "-----------------------------------------------------------------------------");
+        LogWriter.writeInfo("output.txt", "-----------------------------------------------------------------------------");
 
     }
 }
