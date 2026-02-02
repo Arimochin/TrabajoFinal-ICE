@@ -28,6 +28,6 @@ public class TSPSurvivorsSelectionElitismX implements ITSPSurvivorSelection, IPr
 
     @Override
     public String getStringValue() {
-        return "Survivor Selection: ElitismX";
+        return "Survivor Selection: ElitismX" + " second method: " + secondMethod.getStringValue();
     }
 }
