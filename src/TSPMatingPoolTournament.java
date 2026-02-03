@@ -37,6 +37,8 @@ public class TSPMatingPoolTournament implements ITSPMatingPool, IPrintable{
                 }
             }
 
+
+
             matingPool.add(bestSample);
 
             if (!withReplacement) {
