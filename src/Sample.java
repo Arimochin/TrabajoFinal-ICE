@@ -4,10 +4,6 @@ public class Sample implements Comparable<Sample> {
     private int[] tour;
     private int fitness;
 
-
-
-
-
     public int[] getTour() {
         return tour;
     }

@@ -8,7 +8,6 @@ public class LogWriter {
         content += System.lineSeparator();
         try {
             // "Paths.get" define la ruta, "write" crea el archivo o lo sobreescribe
-            // Si quieres que se añada al final sin borrar lo anterior, usa StandardOpenOption.APPEND
             Files.write(Paths.get(fileName), content.getBytes(),
                     StandardOpenOption.CREATE,
                     StandardOpenOption.APPEND);
