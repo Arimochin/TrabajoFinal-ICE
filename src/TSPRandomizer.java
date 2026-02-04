@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Random;
 
 public class TSPRandomizer {
@@ -38,8 +40,11 @@ public class TSPRandomizer {
         builder.setParentSelection(getRandomMatingPool());
         builder.setSurvivorSelectionOperator(getRandomSurvivorSelection());
 
-        builder.setCrossChance(getRandomDouble(CROSSOVER_CHANCE_MIN, CROSSOVER_CHANCE_MAX));
-        builder.setMutationChance(getRandomDouble(MUTATION_CHANCE_MIN, MUTATION_CHANCE_MAX));
+        BigDecimal crossChance = BigDecimal.valueOf(getRandomDouble(CROSSOVER_CHANCE_MIN, CROSSOVER_CHANCE_MAX)).setScale(2, RoundingMode.DOWN);
+        BigDecimal mutationChance = BigDecimal.valueOf(getRandomDouble(MUTATION_CHANCE_MIN, MUTATION_CHANCE_MAX)).setScale(2, RoundingMode.DOWN);
+
+        builder.setCrossChance(crossChance.doubleValue());
+        builder.setMutationChance(mutationChance.doubleValue());
 
         return builder.build();
     }
@@ -60,8 +65,9 @@ public class TSPRandomizer {
 
     private static ITSPMatingPool getRandomMatingPool() {
         if (random.nextBoolean()) {
-            double s = getRandomDouble(ROULETTE_FACTOR_S_MIN, ROULETTE_FACTOR_S_MAX);
-            return new TSPMatingPoolRoulette(s);
+            BigDecimal sFactor = BigDecimal.valueOf(getRandomDouble(ROULETTE_FACTOR_S_MIN, ROULETTE_FACTOR_S_MAX)).setScale(2, RoundingMode.DOWN);
+            //double s = getRandomDouble(ROULETTE_FACTOR_S_MIN, ROULETTE_FACTOR_S_MAX);
+            return new TSPMatingPoolRoulette(sFactor.doubleValue());
         } else {
             int k = getRandomInt(TOURNAMENT_K_MIN, TOURNAMENT_K_MAX);
 
