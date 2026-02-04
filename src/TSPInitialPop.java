@@ -17,7 +17,7 @@ public class TSPInitialPop implements IPrintable{
         List<Sample> population = new ArrayList<>();
         population = generateGreedySubset(matriz, goodSolutions);
         population.addAll(generateRandomSubset(matriz,randomSolutions));
-        printSubsets(population);
+        //printSubsets(population);
         return population;
     }
 

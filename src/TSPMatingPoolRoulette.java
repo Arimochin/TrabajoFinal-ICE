@@ -8,7 +8,7 @@ public class TSPMatingPoolRoulette implements ITSPMatingPool, IPrintable{
     }
 
     @Override
-    public List<Sample> getMatingPool(List<Sample> population, int[][] matrix) {
+    public List<Sample> getMatingPool(List<Sample> population, int[][] matrix, int n) {
         List<Sample> matingPool = new ArrayList<>();
 
 
@@ -19,7 +19,7 @@ public class TSPMatingPoolRoulette implements ITSPMatingPool, IPrintable{
 
 
 
-        for (int iteration = 0; iteration < population.size()/2; iteration++) {
+        for (int iteration = 0; iteration < n; iteration++) {
             int selected = spinRoulette(probAcum);
             matingPool.add(population.get(selected));
         }

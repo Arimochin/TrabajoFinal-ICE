@@ -8,14 +8,15 @@ public class TSPMatingPoolTournament implements ITSPMatingPool, IPrintable{
     private boolean withReplacement;
     private int n;
 
-    public TSPMatingPoolTournament(int k, boolean withReplacement, int n){
+    public TSPMatingPoolTournament(int k, boolean withReplacement){
         this.k = k;
         this.withReplacement = withReplacement;
-        this.n = n;
+        //this.n = n;
     }
 
     @Override
-    public List<Sample> getMatingPool(List<Sample> population, int[][] matrix) {
+    public List<Sample> getMatingPool(List<Sample> population, int[][] matrix, int n) {
+        this.n = n;
         List<Sample> matingPool = new ArrayList<>();
         List<Sample> populationForTournament = new ArrayList<>(population);
 

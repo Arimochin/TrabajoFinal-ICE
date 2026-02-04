@@ -22,6 +22,6 @@ public class TSPSurvivorsSelectionSteadyState implements ITSPSurvivorSelection, 
 
     @Override
     public String getStringValue() {
-        return "Survivor Selection: Steady State";
+        return "Survivor Selection: Steady State n: " + n;
     }
 }

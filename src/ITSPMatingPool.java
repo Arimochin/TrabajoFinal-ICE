@@ -2,5 +2,5 @@ import java.util.List;
 
 public interface ITSPMatingPool extends IPrintable {
 
-     List<Sample> getMatingPool(List<Sample> population, int[][] matrix);
+     List<Sample> getMatingPool(List<Sample> population, int[][] matrix, int n);
 }

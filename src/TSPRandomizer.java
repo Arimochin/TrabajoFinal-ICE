@@ -12,6 +12,11 @@ public class TSPRandomizer {
     private static final double MUTATION_CHANCE_MIN = 0.01;
     private static final double MUTATION_CHANCE_MAX = 0.10;
 
+    private static final double CROSSOVER_CHANCE_1 = 0.8;
+    private static final double CROSSOVER_CHANCE_2 = 0.7;
+    private static final double MUTATION_CHANCE_1 = 0.1;
+    private static final double MUTATION_CHANCE_2 = 0.05;
+
     // Roulette Operator Parameters
     private static final double ROULETTE_FACTOR_S_MIN = 1.0;
     private static final double ROULETTE_FACTOR_S_MAX = 2.0;
@@ -19,14 +24,13 @@ public class TSPRandomizer {
     // Tournament Operator Parameters
     private static final int TOURNAMENT_K_MIN = 2;
     private static final int TOURNAMENT_K_MAX = 6;
-    private static final int TOURNAMENT_N_MIN = 10;
-    private static final int TOURNAMENT_N_MAX = 100;
 
     private static final int n = 25;
 
     // Steady State Survivor Parameters
     private static final int STEADY_STATE_REPLACEMENT_MIN = 1;
     private static final int STEADY_STATE_REPLACEMENT_MAX = 10;
+
 
     // ----------------------------------
 
@@ -40,8 +44,11 @@ public class TSPRandomizer {
         builder.setParentSelection(getRandomMatingPool());
         builder.setSurvivorSelectionOperator(getRandomSurvivorSelection());
 
-        BigDecimal crossChance = BigDecimal.valueOf(getRandomDouble(CROSSOVER_CHANCE_MIN, CROSSOVER_CHANCE_MAX)).setScale(2, RoundingMode.DOWN);
-        BigDecimal mutationChance = BigDecimal.valueOf(getRandomDouble(MUTATION_CHANCE_MIN, MUTATION_CHANCE_MAX)).setScale(2, RoundingMode.DOWN);
+//        BigDecimal crossChance = BigDecimal.valueOf(getRandomDouble(CROSSOVER_CHANCE_MIN, CROSSOVER_CHANCE_MAX)).setScale(2, RoundingMode.DOWN);
+//        BigDecimal mutationChance = BigDecimal.valueOf(getRandomDouble(MUTATION_CHANCE_MIN, MUTATION_CHANCE_MAX)).setScale(2, RoundingMode.DOWN);
+
+        BigDecimal crossChance = BigDecimal.valueOf(getRandomBetween2(CROSSOVER_CHANCE_1, CROSSOVER_CHANCE_2));
+        BigDecimal mutationChance = BigDecimal.valueOf(getRandomBetween2(MUTATION_CHANCE_1 , MUTATION_CHANCE_2));
 
         builder.setCrossChance(crossChance.doubleValue());
         builder.setMutationChance(mutationChance.doubleValue());
@@ -51,34 +58,39 @@ public class TSPRandomizer {
 
     private static ITSPCrossoverOperator getRandomCrossover() {
         if (random.nextBoolean()) {
+            // Order
             return new TSPCrossoverOperatorOrder();
         }
+        // PMX
         return new TSPCrossoverOperatorPMX();
     }
 
     private static ITSPMutationOperator getRandomMutation() {
         if (random.nextBoolean()) {
+            // Insertion
             return new TSPMutationOperatorInsertion();
         }
+        // Invertion
         return new TSPMutationOperatorInversion();
     }
 
     private static ITSPMatingPool getRandomMatingPool() {
         if (random.nextBoolean()) {
-            BigDecimal sFactor = BigDecimal.valueOf(getRandomDouble(ROULETTE_FACTOR_S_MIN, ROULETTE_FACTOR_S_MAX)).setScale(2, RoundingMode.DOWN);
-            //double s = getRandomDouble(ROULETTE_FACTOR_S_MIN, ROULETTE_FACTOR_S_MAX);
+            // Roulette
+            BigDecimal sFactor = BigDecimal.valueOf(getRandomDouble(ROULETTE_FACTOR_S_MIN, ROULETTE_FACTOR_S_MAX)).setScale(1, RoundingMode.DOWN);
             return new TSPMatingPoolRoulette(sFactor.doubleValue());
         } else {
+            // Tournament
             int k = getRandomInt(TOURNAMENT_K_MIN, TOURNAMENT_K_MAX);
-
+            //int k = getRandomBetween2(2, 4);
             boolean replacement = random.nextBoolean();
-            return new TSPMatingPoolTournament(k, replacement, n);
+            return new TSPMatingPoolTournament(k, replacement);
         }
     }
 
     private static ITSPSurvivorSelection getRandomSurvivorSelection() {
         if (random.nextBoolean()) {
-            int n = getRandomInt(STEADY_STATE_REPLACEMENT_MIN, STEADY_STATE_REPLACEMENT_MAX);
+            // Steady State
             return new TSPSurvivorsSelectionSteadyState(n);
         } else {
             // Recursive call to get a random mating pool for ElitismX
@@ -92,5 +104,23 @@ public class TSPRandomizer {
 
     private static int getRandomInt(int min, int max) {
         return random.nextInt(max - min + 1) + min;
+    }
+
+    private static double getRandomBetween2(double one, double two){
+        double random = Math.random();
+        if (random < 0.5) {
+            return one;
+        } else {
+            return two;
+        }
+    }
+
+    private static int getRandomBetween2(int one, int two){
+        double random = Math.random();
+        if (random < 0.5) {
+            return one;
+        } else {
+            return two;
+        }
     }
 }
