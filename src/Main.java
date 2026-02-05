@@ -22,52 +22,52 @@ public class Main {
       // tsp.init(m,2000);
       // Register.evaluate(tsp);
 
-//        for(int i = 0; i < 25; i++) {
-//            TSP tsp = builder.setInitialPop(5, 50).setParentSelection(new TSPMatingPoolTournament(6, false, 25))
-//                    .setCrossoverOperator(new TSPCrossoverOperatorPMX()).setCrossChance(0.7D)
-//                    .setMutationOperator(new TSPMutationOperatorInversion()).setMutationChance(0.05)
-//                    .setSurvivorSelectionOperator(new TSPSurvivorsSelectionElitismX(new TSPMatingPoolRoulette(1.1)))
-//                    .build();
-//            tsp.init(m, 2000);
-//            Register.evaluate(tsp);
-//        }
-//
-//        for(int i = 0; i < 25; i++) {
-//            TSP tsp = builder.setInitialPop(5, 50).setParentSelection(new TSPMatingPoolRoulette(1.8))
-//                    .setCrossoverOperator(new TSPCrossoverOperatorPMX()).setCrossChance(0.7)
-//                    .setMutationOperator(new TSPMutationOperatorInversion()).setMutationChance(0.1)
-//                    .setSurvivorSelectionOperator(new TSPSurvivorsSelectionSteadyState(25))
-//                    .build();
-//            tsp.init(m, 2000);
-//            Register.evaluate(tsp);
-//        }
-//
-//        for(int i = 0; i < 25; i++) {
-//            TSP tsp = builder.setInitialPop(5, 50).setParentSelection(new TSPMatingPoolTournament(5, false, 25))
-//                    .setCrossoverOperator(new TSPCrossoverOperatorOrder()).setCrossChance(0.7)
-//                    .setMutationOperator(new TSPMutationOperatorInversion()).setMutationChance(0.1)
-//                    .setSurvivorSelectionOperator(new TSPSurvivorsSelectionElitismX(new TSPMatingPoolTournament(6, false, 48)))
-//                    .build();
-//            tsp.init(m, 2000);
-//            Register.evaluate(tsp);
-//        }
-//
-//        for(int i = 0; i < 25; i++) {
-//            TSP tsp = builder.setInitialPop(5, 50).setParentSelection(new TSPMatingPoolRoulette(1.1))
-//                    .setCrossoverOperator(new TSPCrossoverOperatorPMX()).setCrossChance(0.80D)
-//                    .setMutationOperator(new TSPMutationOperatorInversion()).setMutationChance(0.1)
-//                    .setSurvivorSelectionOperator(new TSPSurvivorsSelectionElitismX(new TSPMatingPoolRoulette(1.1)))
-//                    .build();
-//            tsp.init(m, 2000);
-//            Register.evaluate(tsp);
-//        }
-
-
-        for(int i = 0; i < 100; i++){
-            TSP randomTSP = TSPRandomizer.createRandomTSP();
-            randomTSP.init(m,2000);
-            Register.evaluate(randomTSP);
+        for(int i = 0; i < 25; i++) {
+            TSP tsp = builder.setInitialPop(5, 50).setParentSelection(new TSPMatingPoolTournament(6, false))
+                    .setCrossoverOperator(new TSPCrossoverOperatorPMX()).setCrossChance(0.7D)
+                    .setMutationOperator(new TSPMutationOperatorInversion()).setMutationChance(0.1)
+                    .setSurvivorSelectionOperator(new TSPSurvivorsSelectionSteadyState(25))
+                    .build();
+            tsp.init(m, 2000);
+            Register.evaluateGroup(tsp,0);
         }
+
+        for(int i = 0; i < 25; i++) {
+            TSP tsp = builder.setInitialPop(5, 50).setParentSelection(new TSPMatingPoolRoulette(1.5))
+                    .setCrossoverOperator(new TSPCrossoverOperatorPMX()).setCrossChance(0.8)
+                    .setMutationOperator(new TSPMutationOperatorInversion()).setMutationChance(0.1)
+                    .setSurvivorSelectionOperator(new TSPSurvivorsSelectionElitismX(new TSPMatingPoolRoulette(1.5)))
+                    .build();
+            tsp.init(m, 2000);
+            Register.evaluateGroup(tsp,1);
+        }
+
+        for(int i = 0; i < 25; i++) {
+            TSP tsp = builder.setInitialPop(5, 50).setParentSelection(new TSPMatingPoolRoulette(1.5))
+                    .setCrossoverOperator(new TSPCrossoverOperatorOrder()).setCrossChance(0.7)
+                    .setMutationOperator(new TSPMutationOperatorInversion()).setMutationChance(0.1)
+                    .setSurvivorSelectionOperator(new TSPSurvivorsSelectionSteadyState(25))
+                    .build();
+            tsp.init(m, 2000);
+            Register.evaluateGroup(tsp,2);
+        }
+
+        for(int i = 0; i < 25; i++) {
+            TSP tsp = builder.setInitialPop(5, 50).setParentSelection(new TSPMatingPoolTournament(3, false))
+                    .setCrossoverOperator(new TSPCrossoverOperatorPMX()).setCrossChance(0.80D)
+                    .setMutationOperator(new TSPMutationOperatorInversion()).setMutationChance(0.1)
+                    .setSurvivorSelectionOperator(new TSPSurvivorsSelectionElitismX(new TSPMatingPoolTournament(6, true)))
+                    .build();
+            tsp.init(m, 2000);
+            Register.evaluateGroup(tsp,3);
+        }
+
+
+//        for(int i = 0; i < 100; i++){
+//            TSP randomTSP = TSPRandomizer.createRandomTSP();
+//            randomTSP.init(m,2000);
+//            Register.evaluate(randomTSP);
+//        }
 
 
     }

@@ -6,7 +6,7 @@ from matplotlib.widgets import TextBox
 # ==========================================
 # CONFIGURATION
 # ==========================================
-TARGET_FILE = "output.txt"
+TARGET_FILE = "output-7.txt"
 # ==========================================
 
 def read_and_parse_file(filepath):
