@@ -1,0 +1,1 @@
+public record TSPResult(double bestFitness, long computationTimeMs) {}

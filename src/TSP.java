@@ -52,39 +52,23 @@ public class TSP {
         int i = 0;
         while(i < it) {
             // Seleccion de Padres
-            System.out.println("Tamaño de la poblacion antes seleccion de padres: "+population.size());
             matingPool = parentSelection.getMatingPool(population, matriz, population.size()/2);
-            System.out.println("Seleccion de padres: " + parentSelection.getStringValue());
-            System.out.println("Tamaño de la poblacion despues seleccion de padres: "+population.size());
 
             // Cruce
             List<Sample> kids = getMatingResults();
 
             // Mutacion
             kids = getMutationResults(kids);
-
-            System.out.println("Tamaño de los hijos despues de cruce y mutacion: " + kids.size());
-
-
-            //List<Sample> samplesP = TSPHelper.toSamples(population, matriz);
             Collections.sort(population);
-
-            //List<Sample> samplesK = TSPHelper.toSamples(kids, matriz);
             Collections.sort(kids);
 
             population = survivorSelectionOperator.selectSurvivors(population, kids, matriz);
-            System.out.println("Tamaño de la poblacion despues de survivor selection: " + population.size());
-            if ( population.size() == 51) {
-                System.out.println(survivorSelectionOperator.getStringValue());
-            }
 
             avgFitnessHistory[i] = TSPHelper.getAvgFitness(population);
             bestFitnessHistory[i] = TSPHelper.getMinValue(population).getFitness();
             i++;
 
         }
-        System.out.println("Valor minimo: "+TSPHelper.getMinValue(population).getFitness());
-        System.out.println(i);
         bestSolution = TSPHelper.getMinValue(population);
     }
 

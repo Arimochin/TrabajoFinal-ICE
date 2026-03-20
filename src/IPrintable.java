@@ -1,3 +1,3 @@
-public interface IPrintable {
+public interface IPrintable  {
     String getStringValue();
 }
