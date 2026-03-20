@@ -24,11 +24,11 @@ public class TSPRunner {
         List<TSPResult> groupResults = new ArrayList<>();
 
         for (int i = 0; i < samplesPerGroup; i++) {
-            tsp.init(m, iterations);
-
             long startTime = System.currentTimeMillis();
-            Register.evaluate(tsp);
+            tsp.init(m, iterations);
             long endTime = System.currentTimeMillis();
+
+            Register.evaluate(tsp);
 
             long computationTimeMs = endTime - startTime;
             double finalFitness = tsp.getBestSolution().getFitness();
