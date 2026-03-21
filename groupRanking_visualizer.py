@@ -48,29 +48,27 @@ def parse_tsp_output(file_path):
         i += 1
         
     df = pd.DataFrame(groups_data)
-    # Asignacion de identificadores cortos para facilitar la visualizacion
-    df['ID'] = ['Config ' + str(idx + 1) for idx in range(len(df))]
+    
+    # Asignacion de identificadores cortos para facilitar la visualizacion (iniciando en 0)
+    df['ID'] = ['Group ' + str(idx) for idx in range(len(df))]
     return df
 
 def plot_rankings(df):
     # Generacion de graficos independientes
     fig, axes = plt.subplots(1, 3, figsize=(18, 6))
     
-    # 1. Ranking de Fitness Promedio
-    df_fitness = df.sort_values('Fitness Promedio', ascending=True)
-    axes[0].bar(df_fitness['ID'], df_fitness['Fitness Promedio'], color='skyblue')
+    # 1. Ranking de Fitness Promedio (orden original)
+    axes[0].bar(df['ID'], df['Fitness Promedio'], color='skyblue')
     axes[0].set_title('Ranking: Fitness Promedio')
     axes[0].set_ylabel('Fitness Promedio')
     
-    # 2. Ranking de Desviacion Estandar
-    df_std = df.sort_values('Desviación Estándar', ascending=True)
-    axes[1].bar(df_std['ID'], df_std['Desviación Estándar'], color='lightgreen')
+    # 2. Ranking de Desviacion Estandar (orden original)
+    axes[1].bar(df['ID'], df['Desviación Estándar'], color='lightgreen')
     axes[1].set_title('Ranking: Desviación Estándar')
     axes[1].set_ylabel('Desviación Estándar')
     
-    # 3. Ranking de Tiempo Promedio
-    df_time = df.sort_values('Tiempo Promedio (ms)', ascending=True)
-    axes[2].bar(df_time['ID'], df_time['Tiempo Promedio (ms)'], color='salmon')
+    # 3. Ranking de Tiempo Promedio (orden original)
+    axes[2].bar(df['ID'], df['Tiempo Promedio (ms)'], color='salmon')
     axes[2].set_title('Ranking: Tiempo Promedio (ms)')
     axes[2].set_ylabel('Tiempo (ms)')
     
@@ -85,4 +83,5 @@ def plot_rankings(df):
 
 if __name__ == "__main__":
     df_results = parse_tsp_output('output.txt')
+    print(df_results)
     plot_rankings(df_results)

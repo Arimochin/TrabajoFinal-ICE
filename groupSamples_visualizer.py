@@ -1,53 +1,47 @@
 import re 
 import os 
+import matplotlib as subplots
 import matplotlib.pyplot as plt 
 from matplotlib.widgets import TextBox 
 from matplotlib.lines import Line2D 
 
-# ========================================== 
-# CONFIGURATION 
-# ========================================== 
 TARGET_FILE = "output.txt" 
 MANUAL_COLORS = ['red', 'blue', 'green', 'black', 'purple', 'orange', 'brown'] 
-# ========================================== 
 
 def read_and_parse_file(filepath): 
-    """ 
-    Lee el log adaptándose al formato donde la configuración precede a la corrida 
-    y los valores de fitness están contenidos en el primer bloque [ ... ]. 
-    """ 
+    """
+    Parses configuration, fitness arrays, and statistical summary blocks.
+    """
     experiments = [] 
     group_configs = {} 
+    group_stats = {}
     
     if not os.path.exists(filepath): 
-        print(f"\n[ERROR] File not found: {filepath}") 
-        return [], {} 
+        return [], {}, {}
 
     with open(filepath, 'r', encoding='utf-8') as f: 
         content = f.read() 
 
-    # Separar por la línea divisoria 
     blocks = content.split('-----------------------------------------------------------------------------') 
-    print(f"Found {len(blocks)} potential experiment blocks. Processing...") 
 
     group_counter = 0 
+    current_group_id = None
 
     for block in blocks: 
         block = block.strip()
         if not block: continue 
         
-        # Se omite el bloque de resumen final de grupo
         if block.startswith("Group:"):
+            avg_match = re.search(r'Average fitness:\s*([\d\.]+)', block)
+            if avg_match and current_group_id is not None:
+                group_stats[current_group_id] = float(avg_match.group(1))
             continue
         
-        # --- Extracción de Configuración --- 
         survivor_match = re.search(r'Survivor Selection:\s*(.*?)\n', block) 
         mating_match = re.search(r'Mating Pool Operator:\s*(.*?)\n', block) 
         crossover_match = re.search(r'CrossOver Operator:\s*(.*?)\s+Chance:\s*([\d\.]+)', block) 
         mutation_match = re.search(r'Mutation Operator:\s*(.*?)\s+Chance:\s*([\d\.]+)', block) 
         
-        # --- Extracción de Fitness --- 
-        # Se extrae el primer arreglo de números (fitness), ignorando "Best Composition"
         fitness_list_match = re.search(r'\[([\d,\s\n]+)\]', block) 
         
         if fitness_list_match: 
@@ -59,7 +53,6 @@ def read_and_parse_file(filepath):
 
             if not fitness_values: continue 
 
-            # Determinar parámetros para el resumen 
             survivor = survivor_match.group(1).strip() if survivor_match else "Unknown" 
             mating = mating_match.group(1).strip() if mating_match else "Unknown" 
             c_name = crossover_match.group(1).strip() if crossover_match else "Unk" 
@@ -74,7 +67,6 @@ def read_and_parse_file(filepath):
                               f"Mut: {m_name} ({m_chance}) | " 
                               f"Surv: {survivor}") 
 
-            # Identificar o crear ID de grupo basado en la configuración única 
             existing_id = next((gid for gid, cfg in group_configs.items() if cfg == config_summary), None) 
             
             if existing_id is None: 
@@ -83,6 +75,8 @@ def read_and_parse_file(filepath):
                 group_counter += 1 
             else: 
                 group_id = existing_id 
+
+            current_group_id = group_id
 
             final_score = fitness_values[-1] 
             label_text = f"[Group {group_id}] Cost: {final_score}" 
@@ -94,11 +88,10 @@ def read_and_parse_file(filepath):
                 'final_score': final_score 
             }) 
 
-    return experiments, group_configs 
+    return experiments, group_configs, group_stats
 
-def generate_dashboard(experiments, group_configs): 
+def generate_dashboard(experiments, group_configs, group_stats): 
     if not experiments: 
-        print("No valid data found.") 
         return 
 
     plt.style.use('seaborn-v0_8-whitegrid') 
@@ -112,7 +105,6 @@ def generate_dashboard(experiments, group_configs):
 
     color_map = {gid: MANUAL_COLORS[i % len(MANUAL_COLORS)] for i, gid in enumerate(unique_groups)} 
 
-    # --- Draw Header Info --- 
     start_y = 0.96 
     fig.text(0.5, 0.98, "Experiment Configurations", ha='center', fontsize=14, fontweight='bold') 
     
@@ -123,15 +115,10 @@ def generate_dashboard(experiments, group_configs):
         fig.text(0.05, start_y - (i * 0.025), text_line,  
                  color=col, fontsize=9, fontweight='bold', fontfamily='monospace') 
 
-    # --- Stats --- 
-    group_scores = {gid: [] for gid in unique_groups} 
-    for exp in experiments: 
-        group_scores[exp['group_id']].append(exp['final_score']) 
-    
-    group_averages = {gid: sum(scores)/len(scores) for gid, scores in group_scores.items()} 
+    group_averages = {gid: group_stats.get(gid, 0.0) for gid in unique_groups}
+
     lines = [] 
     
-    # --- Draw Lines --- 
     for exp in experiments: 
         gid = exp['group_id'] 
         line, = ax.plot( 
@@ -145,7 +132,6 @@ def generate_dashboard(experiments, group_configs):
         ) 
         lines.append(line) 
 
-    # --- Legend --- 
     legend_elements = [Line2D([0], [0], color=color_map[gid], lw=4,  
                        label=f'Group {gid} (Avg: {group_averages[gid]:.1f})') for gid in unique_groups] 
     ax.legend(handles=legend_elements, loc='upper right', title="Performance Stats") 
@@ -154,7 +140,6 @@ def generate_dashboard(experiments, group_configs):
     ax.set_ylabel("Fitness Cost", fontsize=12, fontweight='bold') 
     title_obj = ax.set_title(f"Visualizing {len(experiments)} Runs", fontsize=12, color='#555555') 
 
-    # --- Interaction Logic --- 
     def on_move(event): 
         if event.inaxes != ax: return 
         highlighted = False 
@@ -176,7 +161,6 @@ def generate_dashboard(experiments, group_configs):
                 if line.get_visible(): line.set_alpha(0.5) 
         fig.canvas.draw_idle() 
 
-    # --- Filter Box --- 
     axbox = plt.axes([0.2, 0.03, 0.6, 0.03]) 
     text_box = TextBox(axbox, 'Filter Group/Cost: ', initial="") 
 
@@ -199,5 +183,5 @@ def generate_dashboard(experiments, group_configs):
 if __name__ == "__main__": 
     script_dir = os.path.dirname(os.path.abspath(__file__)) 
     file_path = os.path.join(script_dir, TARGET_FILE) 
-    data, configs = read_and_parse_file(file_path) 
-    generate_dashboard(data, configs)
+    data, configs, stats = read_and_parse_file(file_path) 
+    generate_dashboard(data, configs, stats)
