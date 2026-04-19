@@ -1,7 +1,6 @@
 import java.util.*;
 
 public class TSP {
-    private int[] representacion;
     public  int dimension;
     private int[][] matriz;
     private List<Sample> population;
@@ -14,13 +13,13 @@ public class TSP {
     private int[] bestFitnessHistory;
 
 
-    private ITSPMatingPool parentSelection;
-    private ITSPCrossoverOperator crossoverOperator;
-    private ITSPMutationOperator mutationOperator;
-    private ITSPSurvivorSelection survivorSelectionOperator;
-    private TSPInitialPop tspInitialPop;
+    private final ITSPMatingPool parentSelection;
+    private final ITSPCrossoverOperator crossoverOperator;
+    private final ITSPMutationOperator mutationOperator;
+    private final ITSPSurvivorSelection survivorSelectionOperator;
+    private final TSPInitialPop tspInitialPop;
 
-    TSP (TSPInitialPop tspInitialPop,
+    public TSP (TSPInitialPop tspInitialPop,
          ITSPMatingPool parentSelection,
          ITSPCrossoverOperator crossoverOperator,
          ITSPMutationOperator mutationOperator,
@@ -44,7 +43,6 @@ public class TSP {
         matriz = m;
         TSPHelper.setMatrix(matriz);
         dimension = matriz.length;
-        representacion = new int[dimension];
         avgFitnessHistory = new double[it];
         bestFitnessHistory = new int[it];
 
@@ -115,31 +113,6 @@ public class TSP {
         return kids;
     }
 
-
-    public void setParentSelection(ITSPMatingPool parentSelection) {
-        this.parentSelection = parentSelection;
-    }
-
-    public void setCrossoverOperator(ITSPCrossoverOperator crossoverOperator) {
-        this.crossoverOperator = crossoverOperator;
-    }
-
-    public void setMutationOperator(ITSPMutationOperator mutationOperator) {
-        this.mutationOperator = mutationOperator;
-    }
-
-    public void setCrossChance(double crossChance) {
-        this.crossChance = crossChance;
-    }
-
-    public void setMutationChance(double mutationChance) {
-        this.mutationChance = mutationChance;
-    }
-
-    public void setSurvivorSelection(ITSPSurvivorSelection survivorSelection) {
-        this.survivorSelectionOperator = survivorSelection;
-    }
-
     public double getCrossChance() {
         return crossChance;
     }
@@ -162,10 +135,6 @@ public class TSP {
 
     public ITSPSurvivorSelection getSurvivorSelectionOperator() {
         return survivorSelectionOperator;
-    }
-
-    public double[] getAvgFitnessHistory(){
-        return avgFitnessHistory;
     }
 
     public TSPInitialPop getTspInitialPop() {
