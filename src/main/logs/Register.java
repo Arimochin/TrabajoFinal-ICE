@@ -1,3 +1,8 @@
+package main.logs;
+
+import main.TSP;
+import main.eval.TSPGroupEvaluator;
+
 import java.util.Arrays;
 
 public class Register  {

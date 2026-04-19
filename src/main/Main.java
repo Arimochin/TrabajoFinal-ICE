@@ -1,5 +1,16 @@
+package main;
 
-
+import main.eval.TSPRunner;
+import main.init.ATSPReader;
+import main.init.TSPBuilder;
+import main.logs.LogWriter;
+import main.operators.crossover.TSPCrossoverOperatorOrder;
+import main.operators.crossover.TSPCrossoverOperatorPMX;
+import main.operators.mutation.TSPMutationOperatorInversion;
+import main.operators.parents_selection.TSPMatingPoolRoulette;
+import main.operators.parents_selection.TSPMatingPoolTournament;
+import main.operators.survivors_selection.TSPSurvivorsSelectionElitismX;
+import main.operators.survivors_selection.TSPSurvivorsSelectionSteadyState;
 
 public class Main {
 

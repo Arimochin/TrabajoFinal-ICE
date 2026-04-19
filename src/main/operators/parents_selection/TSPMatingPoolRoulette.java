@@ -1,6 +1,12 @@
+package main.operators.parents_selection;
+
+import main.Sample;
+import main.interfaces.IPrintable;
+import main.interfaces.ITSPMatingPool;
+
 import java.util.*;
 
-public class TSPMatingPoolRoulette implements ITSPMatingPool, IPrintable{
+public class TSPMatingPoolRoulette implements ITSPMatingPool, IPrintable {
     private double s;
 
     public TSPMatingPoolRoulette(double factorS) {
@@ -32,7 +38,7 @@ public class TSPMatingPoolRoulette implements ITSPMatingPool, IPrintable{
         double[] prob = new double[(int)populationSize];
         for (int i = 0; i < populationSize; i++) {
             prob[i] = (2-s) / populationSize + (2 * i * (s - 1)) / (populationSize * (populationSize - 1));
-            //System.out.println("Sample "+ i + ":" +ranking.get(i) +" "+ prob[i]);
+            //System.out.println("main.Sample "+ i + ":" +ranking.get(i) +" "+ prob[i]);
         }
         return prob;
     }

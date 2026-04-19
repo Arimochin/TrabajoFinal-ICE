@@ -1,3 +1,10 @@
+package main.operators.survivors_selection;
+
+import main.Sample;
+import main.interfaces.IPrintable;
+import main.interfaces.ITSPMatingPool;
+import main.interfaces.ITSPSurvivorSelection;
+
 import java.util.ArrayList;
 import java.util.List;
 

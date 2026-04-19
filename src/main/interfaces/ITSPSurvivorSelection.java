@@ -1,3 +1,7 @@
+package main.interfaces;
+
+import main.Sample;
+
 import java.util.List;
 
 public interface ITSPSurvivorSelection  extends IPrintable {

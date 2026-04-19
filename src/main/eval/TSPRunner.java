@@ -1,3 +1,8 @@
+package main.eval;
+
+import main.TSP;
+import main.logs.Register;
+
 import java.util.ArrayList;
 import java.util.List;
 

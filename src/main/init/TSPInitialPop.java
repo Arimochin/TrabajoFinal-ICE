@@ -1,9 +1,14 @@
+package main.init;
+
+import main.Sample;
+import main.interfaces.IPrintable;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class TSPInitialPop implements IPrintable{
+public class TSPInitialPop implements IPrintable {
     private final int goodSolutions;
     private final int randomSolutions;
 

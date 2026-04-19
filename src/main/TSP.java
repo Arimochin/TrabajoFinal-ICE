@@ -1,3 +1,12 @@
+package main;
+
+import main.init.TSPInitialPop;
+import main.interfaces.ITSPCrossoverOperator;
+import main.interfaces.ITSPMatingPool;
+import main.interfaces.ITSPMutationOperator;
+import main.interfaces.ITSPSurvivorSelection;
+import main.util.TSPHelper;
+
 import java.util.*;
 
 public class TSP {

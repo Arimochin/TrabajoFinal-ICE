@@ -1,6 +1,10 @@
-import java.util.List;
+package main.operators.crossover;
 
-public class TSPCrossoverOperatorPMX implements ITSPCrossoverOperator, IPrintable{
+import main.interfaces.IPrintable;
+import main.interfaces.ITSPCrossoverOperator;
+import main.util.TSPHelper;
+
+public class TSPCrossoverOperatorPMX implements ITSPCrossoverOperator, IPrintable {
     @Override
     public int[] getCrossover(int[] p1, int[] p2) {
         int[] k1 = new int[p1.length];

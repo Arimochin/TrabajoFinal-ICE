@@ -1,3 +1,11 @@
+package main.init;
+
+import main.TSP;
+import main.interfaces.ITSPCrossoverOperator;
+import main.interfaces.ITSPMatingPool;
+import main.interfaces.ITSPMutationOperator;
+import main.interfaces.ITSPSurvivorSelection;
+
 public class TSPBuilder{
 
     private ITSPMatingPool parentSelection;

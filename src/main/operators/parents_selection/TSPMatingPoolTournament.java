@@ -1,9 +1,14 @@
+package main.operators.parents_selection;
+
+import main.Sample;
+import main.interfaces.IPrintable;
+import main.interfaces.ITSPMatingPool;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class TSPMatingPoolTournament implements ITSPMatingPool, IPrintable{
+public class TSPMatingPoolTournament implements ITSPMatingPool, IPrintable {
     private int k;
     private boolean withReplacement;
     private int n;

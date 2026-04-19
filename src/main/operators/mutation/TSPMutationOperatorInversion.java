@@ -1,4 +1,9 @@
-public class TSPMutationOperatorInversion implements ITSPMutationOperator, IPrintable{
+package main.operators.mutation;
+
+import main.interfaces.IPrintable;
+import main.interfaces.ITSPMutationOperator;
+
+public class TSPMutationOperatorInversion implements ITSPMutationOperator, IPrintable {
     @Override
     public int[] getMutation(int[] k) {
         int i = (int) (Math.random()*k.length);

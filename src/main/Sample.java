@@ -1,3 +1,7 @@
+package main;
+
+import main.util.TSPHelper;
+
 import java.util.Arrays;
 
 public class Sample implements Comparable<Sample> {
