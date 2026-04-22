@@ -30,3 +30,5 @@ bin/
 
 venv/
 output.txt
+.idea/copilot.data.migration.ask2agent.xml
+.idea/discord.xml
