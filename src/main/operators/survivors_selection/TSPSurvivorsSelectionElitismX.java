@@ -24,7 +24,6 @@ public class TSPSurvivorsSelectionElitismX implements ITSPSurvivorSelection, IPr
         List<Sample> participants = new ArrayList<>();
         participants.addAll(population);
         participants.addAll(kids);
-        System.out.println("Tamaño de los participantes para la seleccion de sobrevivientes: "+ participants.size());
 
         int originalSize = population.size() + 1;
         int neededSecondMethod = (participants.size() / 2) - 1;

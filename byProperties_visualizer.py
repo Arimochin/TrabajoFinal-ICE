@@ -1,5 +1,10 @@
 import re
 import os
+import matplotlib
+
+# Forzar el backend TkAgg para compatibilidad multiplataforma (Windows/Linux)
+matplotlib.use('TkAgg') 
+
 import matplotlib.pyplot as plt
 from matplotlib.widgets import CheckButtons, TextBox
 
