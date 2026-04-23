@@ -4,9 +4,12 @@
 - Se utilizo python 3.12.3 (si se quiere realizar la visualizacion de los resultados.
 
 ## Ejecución
-En la clase Main en la linea 22 se puede colocar el path a un archivo de formato .atsp
+Por medio del ejecutable:
 
-
+Idealmente se necesitaria tener en una misma carpeta el archivo .jar y los archivos .atsp. Asi solo queda ejecutar: 
+```
+java -jar 
+```
 ## Visualización
 Recomendamos crear una venv con el comando: 
 ```
@@ -43,3 +46,5 @@ En Windows simplemente ejecutando deberia funcionar la visualizacion. Si se est�
 sudo apt-get update
 sudo apt-get install python3-tk 
 ```
+
+Importante: tener el archivo "outputs.txt" en la misma carpeta que los visualizadores. 
