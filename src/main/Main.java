@@ -12,17 +12,30 @@ import main.operators.parents_selection.TSPMatingPoolTournament;
 import main.operators.survivors_selection.TSPSurvivorsSelectionElitismX;
 import main.operators.survivors_selection.TSPSurvivorsSelectionSteadyState;
 
+import java.util.logging.Logger;
+
 public class Main {
 
-    private static String filePath1 = "resources/br17.atsp";
-    private static String filePath2 = "resources/p43.atsp";
-
+    private static String filePath;
+    private static int maxIt;
+    private static int samplesPerGroup;
 
     public static void main(String[] args) {
-        int [][] m = ATSPReader.init(filePath2);
 
+        if(args.length > 0){
+            filePath = args[0];
+        } else {
+            throw new RuntimeException("Missing file path argument. Please provide the path to the .atsp file as the first argument.");
+        }
+
+        maxIt = (args.length > 1) ? Integer.parseInt(args[1]) : 2000;
+        samplesPerGroup = (args.length > 2) ? Integer.parseInt(args[2]) : 25;
+
+        int [][] m = ATSPReader.init(filePath);
         TSPBuilder builder = new TSPBuilder();
-        TSPRunner runner = new TSPRunner(2000, 25, m);
+        TSPRunner runner = new TSPRunner(maxIt, samplesPerGroup, m);
+
+        System.out.println("Running TSP with file: " + filePath + ", max iterations: " + maxIt + ", samples per group: " + samplesPerGroup);
 
         LogWriter.resetLogFile("output.txt");
 
@@ -63,6 +76,8 @@ public class Main {
                     .build();
             runner.runGroup(tsp);
 
+
+            System.out.println("Finished all groups. Check output.txt for results.");
 
     }
 }

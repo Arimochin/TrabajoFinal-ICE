@@ -11,14 +11,14 @@ public class ATSPReader {
 
         try {
             int[][] matrix = parseATSP(filePath);
-            printMatrix(matrix);
+
             return matrix;
 
         } catch (FileNotFoundException e) {
-            System.err.println("No se encontró el archivo: " + e.getMessage());
+            System.err.println("Couldn't find file: " + e.getMessage());
             return null;
         } catch (Exception e) {
-            System.err.println("Error al leer el archivo: " + e.getMessage());
+            System.err.println("Couldn't read file: " + e.getMessage());
             return null;
         }
 
@@ -74,11 +74,11 @@ public class ATSPReader {
 
                     if (dimension > 0) {
                         matrix = new int[dimension][dimension];
-                        System.out.println("Dimensión detectada: " + dimension);
+
                     }
                 }
 
-                // Detectar inicio de datos
+
                 if (token.equals("EDGE_WEIGHT_SECTION")) {
                     readingMatrix = true;
                 }
@@ -88,27 +88,12 @@ public class ATSPReader {
         scanner.close();
 
         if (matrix == null) {
-            throw new RuntimeException("No se pudo leer la matriz. Verifique el formato del archivo.");
+            throw new RuntimeException("Couldn't read the matrix, check the file format.");
         }
 
         return matrix;
     }
 
-    // Método auxiliar para imprimir la matriz
-    public static void printMatrix(int[][] matrix) {
-        int rows = matrix.length;
-        int cols = matrix[0].length;
 
-        System.out.println("--- Matriz de Costos ---");
 
-        int limit = Math.min(rows, 10);
-
-        for (int i = 0; i < limit; i++) {
-            for (int j = 0; j < limit; j++) {
-                System.out.printf("%4d ", matrix[i][j]);
-            }
-            System.out.println();
-        }
-        if (rows > 10) System.out.println("... (matriz truncada para visualización)");
-    }
 }
