@@ -1,7 +1,7 @@
 # Trabajo Final de la materia Introducción a la Computación Evolutiva
 ## Prerequisitos para la ejecución:
 - Se utilizo el jdk Eclipse Temurin 22.0.2
-- Se utilizo python 3.12.3 (si se quiere realizar la visualizacion de los resultados.
+- Se utilizo python 3.12.3 (si se quiere realizar la visualizacion de los resultados)
 
 ## Ejecución
 ### Por medio del ejecutable (encontrado en la seccion releases):
